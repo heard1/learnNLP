@@ -17,3 +17,4 @@ seg_list = jieba.cut(sent, cut_all=True)
 seg_list = jieba.cut(sent)
 # 精确+全 搜索引擎模式
 seg_list = jieba.cut_for_search(sent)
+print('/'.join(seg_list))
