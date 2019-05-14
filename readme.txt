@@ -12,8 +12,8 @@
 
 
 nlp-机器学习-知识图谱
-123456789
-10 11
+12345678910
+11
 
 朴素贝叶斯
 逻辑回归
@@ -69,3 +69,7 @@ doc2vec
 	Tableaux算法检查可满足性
 		FaCT++、Racer、Pellet、HermiT
 
+实体提取
+	https://github.com/qq547276542/Agriculture_KnowledgeGraph readme最后部分
+关系提取
+	https://github.com/thunlp/OpenNRE
