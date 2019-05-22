@@ -15,8 +15,8 @@ nlp-机器学习-知识图谱
 12345678910
 11
 
-朴素贝叶斯
-逻辑回归
+朴素贝叶
+逻辑斯回归
 支持向量机
 HMM
 CRF
@@ -73,3 +73,56 @@ doc2vec
 	https://github.com/qq547276542/Agriculture_KnowledgeGraph readme最后部分
 关系提取
 	https://github.com/thunlp/OpenNRE
+
+
+
+bert-base-serving-start -model_dir  C:/Users/Administrator/Desktop/bert_ner -bert_model_dir C:/Users/Administrat
+or/Desktop/chinese_L-12_H-768_A-12/ -mode NER
+
+
+
+CUDA_VISIBLE_DEVICES=" " bert-base-ner-train \
+    -data_dir ./data \
+    -output_dir ./output \
+    -init_checkpoint ./checkpoint/bert_model.ckpt \
+    -bert_config_file ./checkpoint/bert_config.json \
+    -vocab_file ./checkpoint/vocab.txt \
+    -batch_size 16 \
+    -max_seq_length 16
+
+
+
+pip3 install bert-base==0.0.7 -i https://pypi.python.org/simple
+
+
+base环境安装tensorflow
+1. 安装tensorflow-gpu使用豆瓣源安装比较快
+
+
+  pip3 install tensorflow-gpu=1.12.0 https://pypi.douban.com/simple
+
+   源如果有问题的话，用conda自带的源（比较慢）
+  conda install -c anaconda tensorflow-gpu tensorflow=1.12.0
+2. 
+安装keras使用中科大源安装比较快
+
+
+  pip install keras -i https://pypi.mirrors.ustc.edu.cn/simple/
+3. 安装pytorch使用清华源安装比较快
+  conda install --prefix=~/pyenv/py36 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ pytorch torchvision cuda91 -c pytorch
+
+五、虚拟环境安装tensorflow
+python --version 
+>>> Python 3.7.0
+  1. conda create -n tf python=3.7.0
+  2. source activate tf
+  3. conda install -c conda-forge tensorflow
+  4. conda install tensorflow-gpu
+  5. source deactivate
+  6. 测试是否安装成功
+    source activate tensorflow
+    python
+    >>>import tensorflow as tf
+    >>>sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+  7. 删除虚拟环境
+  conda remove -n tensorflow --all
