@@ -112,8 +112,8 @@ base环境安装tensorflow
   conda install --prefix=~/pyenv/py36 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ pytorch torchvision cuda91 -c pytorch
 
 五、虚拟环境安装tensorflow
-python --version 
->>> Python 3.7.0
+python --version
+ >>> Python 3.7.0
   1. conda create -n tf python=3.7.0
   2. source activate tf
   3. conda install -c conda-forge tensorflow
