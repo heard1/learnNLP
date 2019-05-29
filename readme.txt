@@ -126,3 +126,23 @@ python --version
     >>>sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
   7. 删除虚拟环境
   conda remove -n tensorflow --all
+
+
+bert-serving-start  -model_dir E:/python3.6/bert-master/chinese_L-12_H-768_A-12 -num_worker=2
+
+from bert_serving.client import BertClient
+bc = BertClient()
+e=bc.encode(['俺'])[0]
+
+def cos(vector1,vector2):
+    dot_product = 0.0
+    normA = 0.0
+    normB = 0.0
+    for a,b in zip(vector1,vector2):
+        dot_product += a*b
+        normA += a**2
+        normB += b**2
+    if normA == 0.0 or normB==0.0:
+        return None
+    else:
+        return  0.5 + 0.5 * dot_product / ((normA*normB)**0.5)
