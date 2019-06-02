@@ -146,3 +146,16 @@ def cos(vector1,vector2):
         return None
     else:
         return  0.5 + 0.5 * dot_product / ((normA*normB)**0.5)
+
+
+def time_cost(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        res = func(*args, **kwargs)
+        end_time = time.time()
+        print("%s: %sms."%(func.__name__,(1000*(end_time-start_time))))
+        return res
+    return wrapper
+
+re.compile(u'[^\u4E00-\u9FA5|0-9a-zA-Z]')
+s_ = self.regex.sub('', s)
