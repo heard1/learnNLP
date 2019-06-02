@@ -16,7 +16,7 @@ import pandas as pd
 import numpy as np
 import csv
 from bert_serving.client import BertClient
-bc = BertClient()
+#bc = BertClient()
 
 def sentence2vec(sentence):
     embedding_matrix = np.zeros((10, 768))
@@ -93,3 +93,17 @@ def pre(sentence):
     matrix = sentence2vec('/'.join(tem))
     m=np.array([matrix])
     return m
+
+from sklearn import svm
+def SVM_liepin():
+    X_train = [np.sum(x, axis=0) for x in x_train]
+    X_train = np.array(X_train)
+    X_valid = [np.sum(x, axis=0) for x in x_valid]
+    X_valid = np.array(X_valid)
+    Y_train = np.argwhere(y_train == 1)
+    Y_train = [x[1] for x in Y_train]
+    Y_valid = np.argwhere(y_valid == 1)
+    Y_valid = [x[1] for x in Y_valid]
+    clf = svm.SVC()
+    clf.fit(X_train, Y_train)
+    clf.predict(X_valid)
