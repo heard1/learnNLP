@@ -107,3 +107,4 @@ def SVM_liepin():
     clf = svm.SVC()
     clf.fit(X_train, Y_train)
     clf.predict(X_valid)
+    clf.score(X_valid, Y_valid)
