@@ -95,6 +95,8 @@ def pre(sentence):
     return m
 
 from sklearn import svm
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 def SVM_liepin():
     X_train = [np.sum(x, axis=0) for x in x_train]
     X_train = np.array(X_train)
