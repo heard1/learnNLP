@@ -73,7 +73,7 @@ def train():
     output = Dense(76, activation='softmax')(drop)
     model = Model(inputs=input, outputs=output)
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-
+    return model
 
     # model.fit(x_train, y_train,
     #           batch_size=32,
@@ -94,7 +94,7 @@ def pre(sentence):
     m=np.array([matrix])
     return m
 
-from sklearn import svm
+from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 def SVM_liepin():
@@ -106,7 +106,7 @@ def SVM_liepin():
     Y_train = [x[1] for x in Y_train]
     Y_valid = np.argwhere(y_valid == 1)
     Y_valid = [x[1] for x in Y_valid]
-    clf = svm.SVC()
+    clf = SVC()
     clf.fit(X_train, Y_train)
     clf.predict(X_valid)
     clf.score(X_valid, Y_valid)
