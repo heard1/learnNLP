@@ -150,19 +150,19 @@ def getData():
 
 # 89%
 def CNN(x_train, y_train, x_valid, y_valid):
-    input = Input(shape=(20, 768, ), dtype='float32')
+    input = Input(shape=(100, 768, ), dtype='float32')
     # 词窗大小分别为3,4,5
     cnn1 = Conv1D(256, 3, padding='same', strides=1, activation='relu')(input)
-    cnn1 = MaxPooling1D(pool_size=10)(cnn1)
+    cnn1 = MaxPooling1D()(cnn1)
     cnn2 = Conv1D(256, 4, padding='same', strides=1, activation='relu')(input)
-    cnn2 = MaxPooling1D(pool_size=9)(cnn2)
+    cnn2 = MaxPooling1D()(cnn2)
     cnn3 = Conv1D(256, 5, padding='same', strides=1, activation='relu')(input)
-    cnn3 = MaxPooling1D(pool_size=8)(cnn3)
+    cnn3 = MaxPooling1D()(cnn3)
     # 合并三个模型的输出向量
     cnn = concatenate([cnn1, cnn2, cnn3], axis=-1)
     flat = Flatten()(cnn)
     drop = Dropout(0.2)(flat)
-    output = Dense(3, activation='softmax')(drop)
+    output = Dense(2, activation='softmax')(drop)
     model = Model(inputs=input, outputs=output)
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     history = model.fit(x_train, y_train, batch_size=32, epochs=4, validation_data=(x_valid, y_valid))
