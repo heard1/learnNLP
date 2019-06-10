@@ -101,8 +101,8 @@ def get_bert_encode(texts):
     result = json.loads(r.text)  # str --> json
     return np.asarray(result['result'])
 # bert-serving-start -model_dir uncased_L-12_H-768_A-12 -num_worker=4
-from bert_serving.client import BertClient
-bc = BertClient()
+#from bert_serving.client import BertClient
+#bc = BertClient()
 def sentence2vec(sentence):
     embedding_matrix = np.zeros((100, 768))
     tem = sentence.split('/')
