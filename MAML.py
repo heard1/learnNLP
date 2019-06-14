@@ -1,49 +1,3 @@
-**入门知识：**
-
-https://zhuanlan.zhihu.com/p/46059552
-
-meta-train是一系列task（train_set，test_set）放入模型训练
-
-meta-test是少量task（train_set，test_set）用于验证
-
-每个set规模很小，比如5个class*1个sample。
-
-train_set==supporting set
-
-test_set==query set
-
-整个模型通过输入meta-train和meta-test进行学习，最后达到的目的是能自动生成新任务的神经网络参数
-
-**介绍：**
-
-few-shot classification
-
-	a classifier must be adapted to accommodate new classes not seen in training, given only a few examples of each of these new classes. If the support set contains K labeled examples for each of the C unique classes, the target few-shot problem is called C-way K-shot problem. Usually, the K is too small to train a supervised classification model. Therefore we aim to perform meta-learning on the training set, in order to extract transferrable knowledge that will allow us to perform better few-shot learning on the support set and thus classify the test set more successfully.
-
-**主要方法：**
-Few-shot learning
-
-	optimization-based methods：使用few-shot examples优化参数，方法有Meta Network、SNAIL、MAML
-	
-	Distance Metric Learning：学习一组投影函数，从目标问题中获取query和 sample并以前馈方式分类，比如使用KNN的match network
-
-**MAML详解：**
-
-https://zhuanlan.zhihu.com/p/57864886
-
-先用数据(比如5个大类，每个大类support set 5个，query set 15个)得到元模型 M_meta，再用想训练的内容（新的大类）微调得到 M_fine-tune
-
-实现（都是图像分类）：
-
-https://github.com/cbfinn/maml
-
-https://github.com/twitter/meta-learning-lstm
-
-实现基于numpy的MAML：
-
-https://github.com/sudharsan13296/Hands-On-Meta-Learning-With-Python/blob/master/06.%20MAML%20and%20it's%20Variants/6.5%20Building%20MAML%20From%20Scratch.ipynb
-
-```python
 import numpy as np
 def sample_points(k):
     x = np.random.rand(k,50)
@@ -130,4 +84,3 @@ class MAML(object):
                 'Sampling Next Batch of Tasks \n'
                 print
                 '---------------------------------\n'
-```

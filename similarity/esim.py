@@ -1,28 +1,16 @@
-import sys
-import os
-import numpy as np
-import pandas as pd
-import random
-from tqdm import tqdm
 import jieba
 import re
-import matplotlib.pyplot as plt
 import keras
 from keras.layers import *
-from keras.activations import softmax
-from keras.models import Model
 from keras import Input
 from keras.layers import Conv1D, MaxPooling1D, AveragePooling1D, Dense, Flatten, Embedding, Dropout, concatenate, \
     Bidirectional, LSTM, GRU, Reshape
 from keras.models import Model
 from keras.utils import to_categorical
-from keras.preprocessing import sequence
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
-from keras_layer_normalization import LayerNormalization
 from keras import backend as K
-from keras.callbacks import Callback
-from sklearn.metrics import f1_score, precision_score, recall_score, classification_report
+from keras.callbacks import ModelCheckpoint
 
 regex = re.compile(u'[^\u4E00-\u9FA5|0-9a-zA-Z]')
 
@@ -147,5 +135,9 @@ y = Dense(2, activation='softmax')(y)
 model = Model(inputs=[inputs1, inputs2], outputs=y)
 model.compile(optimizer=keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-8),
               loss='binary_crossentropy', metrics=['acc'])
+filepath="weights-improvement-{epoch:02d}-{val_acc:.2f}.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True,mode='max')
+callbacks_list = [checkpoint]
+
 history = model.fit([train_data1, train_data2], train_label, batch_size=512,
-                    validation_data=([test_data1, test_data2], test_label), epochs=4, verbose=1)
+                    validation_data=([test_data1, test_data2], test_label), epochs=4, callbacks=callbacks_list, verbose=1)
