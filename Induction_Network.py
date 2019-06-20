@@ -22,4 +22,3 @@ embedding = Embedding(input_dim=num_words, input_length=maxlen, output_dim=embed
 BiLSTM = Bidirectional(LSTM(units=256, return_sequences=True))(embedding)
 dense = Dense(d_a, activation='tanh')(BiLSTM)
 a = Dense(d_a, activation='softmax')(dense)
-
