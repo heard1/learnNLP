@@ -107,6 +107,7 @@ e2 = Softmax(axis=1)(e)
 e1 = Lambda(K.expand_dims, arguments={'axis': 3})(e1)
 e2 = Lambda(K.expand_dims, arguments={'axis': 3})(e2)
 
+
 _x1 = Lambda(K.expand_dims, arguments={'axis': 1})(BiLSTM2)
 _x1 = Multiply()([e1, _x1])
 _x1 = Lambda(K.sum, arguments={'axis': 2})(_x1)
