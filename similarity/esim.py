@@ -11,7 +11,7 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras import backend as K
 from keras.callbacks import ModelCheckpoint
-
+from keras.engine.base_layer import Layer
 regex = re.compile(u'[^\u4E00-\u9FA5|0-9a-zA-Z]')
 
 

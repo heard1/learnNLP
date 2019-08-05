@@ -53,7 +53,7 @@ class CrimeQA:
     def load_embedding(self, embedding_path):
         embedding_dict = {}
         count = 0
-        for line in open(embedding_path):
+        for line in open(embedding_path,encoding='utf-8'):
             line = line.strip().split(' ')
             if len(line) < 300:
                 continue
@@ -132,8 +132,8 @@ class CrimeQA:
 
 if __name__ == "__main__":
     handler = CrimeQA()
-    while(1):
-        question = input('question:')
-        final_answer = handler.search_main(question)
-        print('answers:', final_answer)
+    # while(1):
+    #     question = input('question:')
+    #     final_answer = handler.search_main(question)
+    #     print('answers:', final_answer)
 
