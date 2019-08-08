@@ -29,3 +29,13 @@ lda = models.LdaModel(corpus=corpus, id2word=dictionary, num_topics=2)
 documents2 = lda[corpus]
 query = dictionary.doc2bow(['human', 'interface', 'computer'])
 query_vec2 = lda[query]
+
+#相似度
+from gensim import similarities
+simi = similarities.MatrixSimilarity(corpus)
+test_text = "Human computer interaction".split()
+test_bow = dictionary.doc2bow(test_text)
+test_tfidf = tfidf[test_bow]
+test_lsi = lsi_model[test_tfidf]
+test_simi = simi[test_lsi]
+print(list(enumerate(test_simi)))
