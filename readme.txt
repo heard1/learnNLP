@@ -1,3 +1,5 @@
+find . -name 'my*'
+find . -name “*.in” | xargs grep “thermcontact”
 知识图谱过程
 	分词
 	向量化
