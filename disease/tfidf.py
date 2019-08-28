@@ -46,21 +46,22 @@ def get_tfidf_socre():
     vectorizer = CountVectorizer()
     transformer = TfidfTransformer()
 
-    # 第一个fit_transform是计算tf-idf 第二个fit_transform是将文本转为词频矩阵
-    tfidf = transformer.fit_transform(vectorizer.fit_transform(corpus))
-
-    # 获取词袋模型中的所有词语
-    word = vectorizer.get_feature_names()
-    weight = tfidf.toarray()
-
     tot = []
+    for i in range(707):
+        print(i)
+        # 第一个fit_transform是计算tf-idf 第二个fit_transform是将文本转为词频矩阵
+        tfidf = transformer.fit_transform(vectorizer.fit_transform(corpus[i*1000:(i+1)*1000]))
 
-    for single in weight:
-        dict_one={}
-        for i in range(1,5):
-            if (single[single.argsort()[-i]]) > 0:
-                dict_one[word[single.argsort()[-i]]] = single[single.argsort()[-i]]
-        tot.append(dict_one)
+        # 获取词袋模型中的所有词语
+        word = vectorizer.get_feature_names()
+        weight = tfidf.toarray()
+
+        for single in weight:
+            dict_one={}
+            for i in range(1,5):
+                if (single[single.argsort()[-i]]) > 0:
+                    dict_one[word[single.argsort()[-i]]] = single[single.argsort()[-i]]
+            tot.append(dict_one)
     return tot
 
 def get_pos_score(word,ori):
@@ -91,11 +92,13 @@ def get_common_word():
     common.remove('李')
     return common
 
+'''
 if __name__ == '__main__':
     tot = get_tfidf_socre()
     common = get_common_word()
     tot2 = []
-    final = []
+    #final = []
+    res_tag = open('store.txt','a+',encoding='utf-8')
     count = 0
     with open('qa.txt', encoding='utf-8') as f:
         for single in f.readlines():
@@ -103,7 +106,7 @@ if __name__ == '__main__':
             tot2.append(sen)
     for question,question2 in zip(tot,tot2):
         count += 1
-        if count % 1000:
+        if count % 1000 == 0:
             print(count)
         tem_dic={}
         for word in question:
@@ -111,4 +114,7 @@ if __name__ == '__main__':
         for i in common:
             if i in question2:
                 tem_dic[i] = 5
-        final.append(tem_dic)
+        #final.append(tem_dic)
+        res_tag.write(str(tem_dic)+'\n')
+    res_tag.close()
+'''
