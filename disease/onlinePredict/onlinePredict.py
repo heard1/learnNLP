@@ -1,3 +1,6 @@
+# encoding=utf-8
+from flask import Flask, request
+import logging
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 import jieba
@@ -94,9 +97,38 @@ def get_common_word():
     common.remove('李')
     return common
 
+def predict(text):
+    tot = get_tfidf_socre(text)
+    common = get_common_word()
+    tot2 = text
 
+    tem_dic = {}
+    for word in tot:
+        tem_dic[word] = get_pos_score(word, tot[word])
+    for i in common:
+        if i in tot2:
+            tem_dic[i] = 5
+    return tem_dic
 
+def create_app():
+    app = Flask(__name__)
+    @app.route('/', methods=['GET', 'POST'])
+    def callback():
+        s = request.args.get("s") or "EOF"
+        app.logger.warning('the sentence is %s', s)
+        ans = predict(s)
+        app.logger.warning('the answer is %s', ans)
+        return str(ans)
+    return app
 
+app = create_app()
+
+if __name__ == '__main__':
+    handler = logging.FileHandler('flask.log')
+    app.logger.addHandler(handler)
+    app.run(host='127.0.0.1', port=5786)
+
+'''
 if __name__ == '__main__':
     while True:
         new = input()
@@ -111,3 +143,4 @@ if __name__ == '__main__':
             if i in tot2:
                 tem_dic[i] = 5
         print(tem_dic)
+'''
