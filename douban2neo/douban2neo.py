@@ -39,7 +39,7 @@ class BuildGraph:
             movies.append(movie)
             try:
                 for _ in single['director']:
-                    person.append(_)
+                    person.append(_.strip())
             except:
                 pass
             try:
@@ -120,7 +120,7 @@ class BuildGraph:
                 print(2,line)
             try:
                 for tem in line['district']:
-                    self.create_rela('Movie', 'District', line['title'], tem, 'District_of')
+                    self.create_rela('Movie', 'District', line['title'], tem, 'district_of')
             except:
                 pass
                 print(3,line)
@@ -194,10 +194,13 @@ class BuildGraph:
             res.append(i['showtime'])
         return res
 
+
+
+
 if __name__ == "__main__":
     handler = BuildGraph()
-    #movies, person, district, language, category = handler.get_node()
-    #handler.put_node(movies, person, district, language, category)
-    #handler.put_rela()
+    movies, person, district, language, category = handler.get_node()
+    handler.put_node(movies, person, district, language, category)
+    handler.put_rela()
 
 
