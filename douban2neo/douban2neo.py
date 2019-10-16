@@ -146,15 +146,58 @@ class BuildGraph:
 
 
     def find_rate(self,name):
-        return self.matcher.match('Movie', name=name).first()['rate']
+        res = []
+        for i in self.matcher.match('Movie', name=name):
+            res.append(i['rate'])
+        return res
     def find_director(self,name):
-        return self.re_matcher.match(nodes= , r_type='direct_by').first()
-
+        movie = self.matcher.match('Movie', name=name).first()
+        res = []
+        for i in self.re_matcher.match(nodes=(movie,), r_type='direct_by'):
+            res.append(i.end_node['name'])
+        return res
+    def find_director_artwork(self, name):
+        director = self.matcher.match('Person', name=name).first()
+        all = self.re_matcher.match(nodes=(None, director), r_type='direct_by')
+        res = []
+        for i in all:
+            res.append(i.start_node['name'])
+        return res
+    def find_actor(self,name):
+        movie = self.matcher.match('Movie', name=name).first()
+        res = []
+        for i in self.re_matcher.match(nodes=(movie,), r_type='act_by'):
+            res.append(i.end_node['name'])
+        return res
+    def find_actor_artwork(self, name):
+        director = self.matcher.match('Person', name=name).first()
+        all = self.re_matcher.match(nodes=(None, director), r_type='act_by')
+        res = []
+        for i in all:
+            res.append(i.start_node['name'])
+        return res
+    def find_language(self,name):
+        movie = self.matcher.match('Movie', name=name).first()
+        res = []
+        for i in self.re_matcher.match(nodes=(movie,), r_type='language_of'):
+            res.append(i.end_node['name'])
+        return res
+    def find_category(self,name):
+        movie = self.matcher.match('Movie', name=name).first()
+        res = []
+        for i in self.re_matcher.match(nodes=(movie,), r_type='category_of'):
+            res.append(i.end_node['name'])
+        return res
+    def find_showtime(self,name):
+        res = []
+        for i in self.matcher.match('Movie', name=name):
+            res.append(i['showtime'])
+        return res
 
 if __name__ == "__main__":
     handler = BuildGraph()
     #movies, person, district, language, category = handler.get_node()
     #handler.put_node(movies, person, district, language, category)
     #handler.put_rela()
-    handler.find_director('赌圣')
+
 
