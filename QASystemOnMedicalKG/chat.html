@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <title>Document</title>
+    <style type="text/css">
+        .talk_con{
+            width:600px;
+            height:700px;
+            border:1px solid #666;
+            margin:50px auto 0;
+            background:#f9f9f9;
+        }
+        .talk_show{
+            width:580px;
+            height:620px;
+            border:1px solid #666;
+            background:#fff;
+            margin:10px auto 0;
+            overflow:auto;
+        }
+        .talk_input{
+            width:580px;
+            margin:10px auto 0;
+        }
+        .talk_word{
+            width:500px;
+            height:26px;
+            padding:0px;
+            float:left;
+            margin-left:10px;
+            outline:none;
+            text-indent:10px;
+        }        
+        .talk_sub{
+            width:56px;
+            height:30px;
+            float:left;
+            margin-left:10px;
+        }
+        .atalk{
+           margin:10px; 
+        }
+        .atalk span{
+            display:inline-block;
+            background:#0181cc;
+            border-radius:10px;
+            color:#fff;
+            padding:5px 10px;
+        }
+        .btalk{
+            margin:10px;
+            text-align:right;
+        }
+        .btalk span{
+            display:inline-block;
+            background: #55ee00;
+            border-radius:10px;
+            color:#333;
+            padding:5px 10px;
+        }
+    </style>
+    <script type="text/javascript">      
+        window.onload = function(){
+            var Words = document.getElementById("words");
+            var TalkWords = document.getElementById("talkwords");
+            var TalkSub = document.getElementById("talksub");
+            
+
+            TalkSub.onclick = function(){
+
+                var question = TalkWords.value;
+                var str = "";
+                if(question == ""){
+                    alert("消息不能为空");
+                    return;
+                }
+                //ajax请求
+                str = '<div class="btalk"><span>' + question +'</span></div>' ;
+                Words.innerHTML = Words.innerHTML + str;
+                Words.scrollTop = Words.scrollHeight;
+                TalkWords.value = "";
+                $.ajax({
+                    url: "http://192.168.110.8:15555/",
+                    data: {
+                        s: question
+                    },
+                    success: function( result ) {
+                        response = '<div class="atalk"><span>' + result +'</span></div>' ;
+                        Words.innerHTML = Words.innerHTML + response;
+                        Words.scrollTop = Words.scrollHeight;
+                    }
+                });
+            }
+
+
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+    <div class="talk_con">
+        <div class="talk_show" id="words">
+            <div class="atalk"><span>您好，我是小勇医药智能助理，希望可以帮到您。如果没答上来，可联系https://liuhuanyong.github.io/。祝您身体棒棒！</span></div>
+        </div>
+        <div class="talk_input">
+            <input type="text" class="talk_word" id="talkwords">
+            <input type="button" value="发送" class="talk_sub" id="talksub">
+        </div>
+    </div>
+</body>
+</html>
