@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+
+    <html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    
+        <title>医药知识图谱</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        
+    <link rel="stylesheet" href="./static/css/styles.css">
+    <link rel="stylesheet" href="./static/css/knowledge.css">
+
+</head>
+<body>
+
+
+    <div class="main bg2">
+        <div id='app'>
+            <div class="container">
+    <input v-model="input" @keyup.enter="enter()" class="input" placeholder="请输入关键字">
+			</div>
+            <div class="no-data" v-if="noData">没有数据！</div>
+            <div v-else id="main" style="width: 90%;height: 800px;margin-left: auto;margin-right: auto"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <script type="text/javascript" src="./static/js/vue.js"></script>
+    <script type="text/javascript" src="./static/js/axios.min.js"></script>
+    <script src="https://echarts.baidu.com/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="./static/js/knowledge.js"></script>
+
+
+</body>
+</html>
